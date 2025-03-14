@@ -1,12 +1,11 @@
 <template>
-    <div>
-      <h1>Dashboard</h1>
-      <p>Bem-vindo à área protegida!</p>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'DashboardView',
-  };
-  </script>
+  <h2>Dashboard</h2>
+</template>
+
+<script setup>
+
+</script>
+
+<style lang="scss" scoped>
+
+</style>

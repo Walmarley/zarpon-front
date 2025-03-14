@@ -10,23 +10,18 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue'),
+      
+    },
+    {
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue'),
-      meta: { requiresAuth: true }, 
+      
     },
   ],
-});
-
-
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('token');
-
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next({ name: 'home' });
-  } else {
-    next(); 
-  }
 });
 
 export default router;
