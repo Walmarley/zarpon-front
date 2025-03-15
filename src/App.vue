@@ -12,10 +12,13 @@
     </li>
   </ul>
 
-  <router-view/>
+  <router-view />
 </template>
 
 <script setup>
+import { useAuth } from '@/stores/auth.js';
+
+const auth = useAuth();
 
 </script>
 

@@ -1,23 +1,23 @@
 <template>
-  <h2>Login</h2>
-
-<form @submit.prevent="login">
-  <input 
-    type="email" 
-    placeholder="Seu Email"
-    v-model="user.email"
-  >
-  <input 
-    type="password" 
-    placeholder="Sua Senha"
-    v-model="user.password"
-  >
-  <button type="submit">Login</button>
-</form>
+  <div>
+    <h2>Login</h2>
+  <form @submit.prevent="login">
+    <input 
+      type="email" 
+      placeholder="Seu Email"
+      v-model="user.email"
+    >
+    <input 
+      type="password" 
+      placeholder="Sua Senha"
+      v-model="user.password"
+    >
+    <button type="submit">Login</button>
+  </form>
+  </div>
 </template>
 
 <script setup>
-
 import http from '@/services/http.js';
 import { reactive } from 'vue';
 import { useAuth } from '@/stores/auth.js';
@@ -41,6 +41,5 @@ async function login(){
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<!-- <style lang="scss" scoped>
+</style> -->
