@@ -7,13 +7,13 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: LoginView, // Login será a página inicial
+    component: LoginView,
   },
   {
     path: '/home',
     name: 'home',
     component: HomeView,
-    meta: { auth: true }, // Requer autenticação
+    meta: { auth: true },
   }
 ];
 
@@ -22,14 +22,13 @@ const router = createRouter({
   routes,
 });
 
-// Middleware para proteger rotas autenticadas
 router.beforeEach((to, from, next) => {
   const auth = useAuth();
 
   if (to.meta.auth && !auth.token) {
-    next({ name: 'login' }); // Se não estiver autenticado, redireciona para Login
+    next({ name: 'login' });
   } else {
-    next(); // Caso contrário, permite o acesso
+    next();
   }
 });
 

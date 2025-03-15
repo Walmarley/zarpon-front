@@ -20,7 +20,6 @@ export function useLogin() {
       auth.setToken(data.token);
       auth.setUser(data.user);
       
-      // Redireciona para a Home após login bem-sucedido
       router.push({ name: 'home' });
 
     } catch (error) {

@@ -14,12 +14,10 @@ export function useUserManagement() {
   const editingUser = ref({ username: '', email: '', password: '', address: '', role: 'user' });
   const newUser = ref({ username: '', email: '', password: '', address: '', role: 'user' });
 
-  // Redireciona se não estiver autenticado
   if (!auth.token) {
     router.push({ name: 'login' });
   }
 
-  // Buscar usuários
   async function fetchUsers() {
     try {
       const response = await http.get('/user', {
@@ -33,13 +31,11 @@ export function useUserManagement() {
     }
   }
 
-  // Logout
   function logout() {
     auth.clearAuth();
     router.push({ name: 'login' });
   }
 
-  // Exibir erro de permissão
   function showPermissionError() {
     permissionMessage.value = 'Você não tem permissão para realizar esta ação.';
     setTimeout(() => {
@@ -47,7 +43,6 @@ export function useUserManagement() {
     }, 3000);
   }
 
-  // Editar usuário
   function editUser(user) {
     if (auth.user.role !== 'admin') {
       showPermissionError();
@@ -57,7 +52,6 @@ export function useUserManagement() {
     showEditModal.value = true;
   }
 
-  // Atualizar usuário
   async function updateUser() {
     try {
       await http.put(`/user/${editingUser.value.id}`, editingUser.value, {
@@ -74,7 +68,6 @@ export function useUserManagement() {
     }
   }
 
-  // Excluir usuário
   async function deleteUser(user) {
     if (auth.user.role !== 'admin') {
       showPermissionError();
@@ -94,13 +87,11 @@ export function useUserManagement() {
     }
   }
 
-  // Abrir modal de adicionar usuário
   function openAddUserModal() {
     newUser.value = { username: '', email: '', password: '', address: '', role: 'user' };
     showAddModal.value = true;
   }
 
-  // Criar usuário
   async function addUser() {
     try {
       await http.post('/register', newUser.value, {
@@ -114,7 +105,6 @@ export function useUserManagement() {
     }
   }
 
-  // Buscar usuários ao montar o componente
   onMounted(() => {
     fetchUsers();
   });

@@ -2,7 +2,7 @@
 import { useUserManagement } from '@/composables/UserManagement.js';
 import { useAuth } from '@/stores/auth.js';
 import { ref, computed } from 'vue';
-import '@/assets/styles/HomeView.css'; // Importando os estilos
+import '@/assets/styles/HomeView.css';
 
 const {
   users,
@@ -21,14 +21,13 @@ const {
 } = useUserManagement();
 
 const auth = useAuth();
-const isAdmin = auth.user?.role === 'admin'; // Verifica se o usuário logado é admin
-const isUser = auth.user?.role === 'user';  // Verifica se o usuário logado é user
+const isAdmin = auth.user?.role === 'admin';
+const isUser = auth.user?.role === 'user';
 
 const searchQuery = ref('');
 const sortColumn = ref(null);
-const sortOrder = ref(1); // 1 = ascendente, -1 = descendente
+const sortOrder = ref(1);
 
-// Função para ordenar a tabela
 const sortedUsers = computed(() => {
   let filtered = users.value;
 
@@ -49,7 +48,6 @@ const sortedUsers = computed(() => {
   return filtered;
 });
 
-// Alterna a ordenação ao clicar no cabeçalho
 const sortTable = column => {
   if (sortColumn.value === column) {
     sortOrder.value *= -1;
@@ -73,11 +71,10 @@ const sortTable = column => {
     </div>
 
     <div class="button-container">
-      <button class="add-btn" @click="openAddUserModal">Adicionar Usuário</button> <!-- Todos podem adicionar -->
+      <button class="add-btn" @click="openAddUserModal">Adicionar Usuário</button>
       <button class="logout-btn" @click="logout">Logout</button>
     </div>
 
-    <!-- Campo de busca -->
     <input v-model="searchQuery" type="text" placeholder="Buscar por nome..." class="search-input" />
 
     <table v-if="sortedUsers.length" class="user-table">
@@ -87,7 +84,7 @@ const sortTable = column => {
           <th @click="sortTable('email')">Email</th>
           <th @click="sortTable('address')">Address</th>
           <th @click="sortTable('role')">Role</th>
-          <th v-if="isAdmin">Actions</th> <!-- Esconde a coluna se não for admin -->
+          <th v-if="isAdmin">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -96,7 +93,7 @@ const sortTable = column => {
           <td>{{ user.email }}</td>
           <td>{{ user.address }}</td>
           <td>{{ user.role }}</td>
-          <td v-if="isAdmin"> <!-- Apenas admin pode ver Editar/Excluir -->
+          <td v-if="isAdmin">
             <button class="edit-btn" @click="editUser(user)">Editar</button>
             <button class="delete-btn" @click="deleteUser(user)">Excluir</button>
           </td>
@@ -104,7 +101,6 @@ const sortTable = column => {
       </tbody>
     </table>
 
-    <!-- Modal de edição -->
     <div v-if="showEditModal" class="modal-overlay" @click.self="showEditModal = false">
       <div class="modal">
         <h3>Editar Usuário</h3>
@@ -124,7 +120,6 @@ const sortTable = column => {
       </div>
     </div>
 
-    <!-- Modal de adicionar usuário -->
     <div v-if="showAddModal" class="modal-overlay" @click.self="showAddModal = false">
       <div class="modal">
         <h3>Adicionar Usuário</h3>
@@ -135,7 +130,7 @@ const sortTable = column => {
         
         <select v-model="newUser.role" class="modal-input">
           <option value="user">User</option>
-          <option v-if="isAdmin" value="admin">Admin</option> <!-- Apenas admin pode criar admin -->
+          <option v-if="isAdmin" value="admin">Admin</option>
         </select>
 
         <div class="modal-buttons">
