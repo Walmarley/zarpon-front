@@ -17,28 +17,18 @@ export const useAuth = defineStore('auth', () => {
         user.value = userValue;
     }
 
-    // async function checkToken() {
-    //     try {
-    //         const tokenAuth = 'Bearer ' + token;
-    //         const { data } = await http.get('/auth/verify', {
-    //             headers: {
-    //                 Authorization: tokenAuth,
-    //             },
-    //         });
-    //         return data;
-    //     } catch (error) {
-    //         console.log(error.response.data);
-    //     }
-    // }
-    
-
+    function clearAuth() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        token.value = null;
+        user.value = null;
+    }
 
     return {
         token,
         user,
         setToken,
         setUser,
-        // checkToken
-    }
-
-    });
+        clearAuth,
+    };
+});
